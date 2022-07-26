@@ -20,7 +20,12 @@
                     <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Surname</th>
                         <th>Email</th>
+                        <th>Phone number</th>
+                        <th>City</th>
+                        <th>Street</th>
+                        <th>Home number</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -28,7 +33,12 @@
                     <tbody>
                     <tr th:each="user : ${users}">
                         <td th:text="${user.name}"></td>
+                        <td th:text="${user.surname}"></td>
                         <td th:text="${user.email}"></td>
+                        <td th:text="${user.phoneNumber}"></td>
+                        <td th:text="${user.city}"></td>
+                        <td th:text="${user.street}"></td>
+                        <td th:text="${user.homeNumber}"></td>
                         <td><a th:href="@{/edit/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
                         <td><a th:href="@{/delete/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
                     </tr>
