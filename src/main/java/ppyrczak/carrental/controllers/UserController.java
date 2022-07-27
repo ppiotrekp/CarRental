@@ -1,5 +1,6 @@
 package ppyrczak.carrental.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import ppyrczak.carrental.repositories.UserRepository;
 import javax.validation.Valid;
 
 @Controller
+@Slf4j
 public class UserController {
 
     private final UserRepository userRepository;
@@ -49,16 +51,37 @@ public class UserController {
         return "/signin";
     }
 
-    @PostMapping("/check")
-    public String identifyUser(String password, Model model, User user) {
-        if (user == userRepository.findByPassword(user.getPassword())) {
-            //model.addAttribute("user", user);
-            return "/index";
+   /* @PostMapping("/signin")
+    public String identifyUser(User user) {
+        if (user == userRepository.findByPassword(user.getPassword()) && user == userRepository.findByEmail(user.getEmail())) {
+            log.info("Work");
+            return "/check";
         }
 
         else {
-            return "/home";
+            log.info("not Work");
+            return "/sign-in";
         }
+
+    }*/
+
+    @PostMapping("/check")
+    public String identifyUser(User user) {
+        if (userRepository.existsByEmailAndPassword(user.getEmail(), user.getPassword())) {
+            log.info("Work");
+            return "/check";
+        }
+
+        else {
+            log.info("not Work");
+            return "redirect:/signin";
+        }
+
+    }
+
+    @GetMapping("/check")
+    public String checkPage() {
+        return "/check";
     }
 
 
