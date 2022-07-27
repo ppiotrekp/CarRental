@@ -44,6 +44,26 @@ public class UserController {
         return "redirect:/index";
     }
 
+    @GetMapping("/signin")
+    public String showSignInForm() {
+        return "/signin";
+    }
+
+    @PostMapping("/check")
+    public String identifyUser(String password, Model model, User user) {
+        if (user == userRepository.findByPassword(user.getPassword())) {
+            //model.addAttribute("user", user);
+            return "/index";
+        }
+
+        else {
+            return "/home";
+        }
+    }
+
+
+
+
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));

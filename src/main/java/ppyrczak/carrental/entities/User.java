@@ -121,10 +121,6 @@ public class User {
         this.password = password;
     }
 
-    public boolean userIdentification(String email, String password) {
-        return true;
-    }
-
     @Override
     public String toString() {
         return "User{" + "id=" + id + ", name=" + name + ", email=" + email + '}';
