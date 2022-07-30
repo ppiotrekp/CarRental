@@ -51,12 +51,12 @@ public class UserController {
         return "/signin";
     }
 
-    @GetMapping("/panel")
-    public String identifyUser(User user, String email, Model model) {
-        if (userRepository.existsByEmailAndPassword(email, user.getPassword())) {
-
-            log.info("Work, id: " + email);
-            return "panel";
+    @GetMapping("/panel-user/{email}")
+    public String identifyUser(User user, @PathVariable("email") String email, String password, Model model) {
+        if (userRepository.existsByEmailAndPassword(email, password)) {
+            model.addAttribute("user", user);
+            log.info("Work, email: " + email);
+            return "panel-user";
         }
 
         else {
@@ -65,7 +65,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/update-user/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("user", user);
@@ -73,7 +73,7 @@ public class UserController {
         return "update-user";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/update-user/{id}")
     public String updateUser(@PathVariable("id") Long id, @Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             user.setId(id);

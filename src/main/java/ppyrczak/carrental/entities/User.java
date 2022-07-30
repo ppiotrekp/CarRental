@@ -1,5 +1,7 @@
 package ppyrczak.carrental.entities;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +9,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 @Entity
+@Data
 public class User {
 
     @Id
@@ -14,6 +17,7 @@ public class User {
     private Long id;
     @NotBlank(message = "Name is mandatory")
     private String name;
+
 
     @NotBlank(message = "Surname is mandatory")
     private String surname;
@@ -35,7 +39,7 @@ public class User {
 
     @NotBlank(message = "Password is mandatory")
     private String password;
-
+/*
     public User() {}
 
     public User(Long id,
@@ -144,5 +148,5 @@ public class User {
     @Override
     public String toString() {
         return "User{" + "id=" + id + ", name=" + name + ", email=" + email + '}';
-    }
+    }*/
 }

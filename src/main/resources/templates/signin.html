@@ -30,7 +30,7 @@
 </nav>
 
 <div class="container">
-    <form class="form-signin" method="get" th:action="@{/panel}">
+    <form class="form-signin" method="get" th:action="@{/panel-user/{email}(email=${user.email})}" th:object="${user}">
         <br style = “line-height:100px;”>
         <h1 class="form-heading">Log in</h1>
 
