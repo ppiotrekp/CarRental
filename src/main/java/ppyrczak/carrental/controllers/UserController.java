@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @GetMapping("/panel-user/{email}")
-    public String identifyUser(User user, @PathVariable("email") String email, String password, Model model) {
+    public String identifyUser(@PathVariable("email") String email, User user, String password, Model model) {
         if (userRepository.existsByEmailAndPassword(email, password)) {
             model.addAttribute("user", user);
             log.info("Work, email: " + email);
@@ -60,7 +60,7 @@ public class UserController {
         }
 
         else {
-            log.info("not Work");
+            log.info("wrong email or password");
             return "redirect:/signin";
         }
     }
