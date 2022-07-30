@@ -11,7 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @NotBlank(message = "Name is mandatory")
     private String name;
 
@@ -38,6 +38,26 @@ public class User {
 
     public User() {}
 
+    public User(Long id,
+                String name,
+                String surname,
+                String email,
+                String phoneNumber,
+                String city,
+                String street,
+                String homeNumber,
+                String password) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.city = city;
+        this.street = street;
+        this.homeNumber = homeNumber;
+        this.password = password;
+    }
+
     public User(String name, String email, String surname, String phoneNumber, String city, String street, String homeNumber, String password) {
         this.name = name;
         this.email = email;
@@ -49,11 +69,11 @@ public class User {
         this.password = password;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
