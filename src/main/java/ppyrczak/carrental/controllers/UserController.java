@@ -51,18 +51,12 @@ public class UserController {
         return "/signin";
     }
 
-    @GetMapping("/panel-user/{email}")
-    public String identifyUser(@PathVariable("email") String email, User user, String password, Model model) {
-        if (userRepository.existsByEmailAndPassword(email, password)) {
+    @GetMapping("/panel-user")
+    public String identifyUser(String email, String password, Model model) {
+            User user = userRepository.findByEmailAndPassword(email, password).orElseThrow(() ->
+                    new IllegalArgumentException("Invalid user email:" + email));
             model.addAttribute("user", user);
-            log.info("Work, email: " + email);
             return "panel-user";
-        }
-
-        else {
-            log.info("wrong email or password");
-            return "redirect:/signin";
-        }
     }
 
     @GetMapping("/update-user/{id}")
