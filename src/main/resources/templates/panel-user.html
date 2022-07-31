@@ -3,68 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Check</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="/css/main.css" rel="stylesheet">
+    <style> form {
+        float: right;
+    }</style>
 </head>
 <body>
-<div class="container my-5">
-    <h2 class="mb-5"> User</h2>
-    <div class="row">
-        <div class="col-md-6">
-            <form action="#" th:action="@{/panel-user}" th:object="${user}" method="get">
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="name" class="col-form-label">Name</label>
-                        <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name">
-                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="surname" class="col-form-label">Surname</label>
-                        <input type="text" th:field="*{surname}" class="form-control" id="surname" placeholder="Surname">
-                        <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="email" class="col-form-label">Email</label>
-                        <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email">
-                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="password" class="col-form-label">Password</label>
-                        <div class="input-group" id="show_hide_password">
-                            <input type="password" class="form-control" id="password" autocomplete="off"
-                                   th:field="*{password}"/>
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="phone number" class="col-form-label">Phone number</label>
-                        <input type="text" th:field="*{phoneNumber}" class="form-control" id="phone number" placeholder="Phone number">
-                        <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="city" class="col-form-label">City</label>
-                    <input type="text" th:field="*{city}" class="form-control" id="city" placeholder="City">
-                    <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="street" class="col-form-label">Street</label>
-                    <input type="text" th:field="*{street}" class="form-control" id="street" placeholder="Street">
-                    <span th:if="${#fields.hasErrors('street')}" th:errors="*{street}" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="home number" class="col-form-label">Home number</label>
-                    <input type="text" th:field="*{homeNumber}" class="form-control" id="home number" placeholder="Home number">
-                    <span th:if="${#fields.hasErrors('homeNumber')}" th:errors="*{homeNumber}" class="text-danger"></span>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mt-5">
-                        <input type="submit" class="btn btn-primary" value="Update User">
-                    </div>
-                </div>
-            </form>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <div class="navbar-nav ml-auto">
+                <form action="#" th:action="@{/update-user/{id}(id=${user.id})}"  method="GET">
+                    <a class="navbar navbar-light" th:href="@{/update-user/{id}(id=${user.id})}">My account</a>
+                </form>
+                <form action="#" th:action="@{/home}"  method="GET">
+                    <a class="navbar navbar-light" th:href="@{/home}">Logout</a>
+                </form>
+                <form action="#" th:action="@{/home}"  method="GET">
+                    <a class="navbar navbar-light" th:href="@{/home}">History</a>
+                </form>
+                <form action="#" th:action="@{/home}"  method="GET">
+                    <a class="navbar navbar-light" th:href="@{/home}">Cars</a>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+
+</nav>
+
+
+
+
+
 </body>
 </html>

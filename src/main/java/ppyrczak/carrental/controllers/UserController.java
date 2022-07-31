@@ -9,10 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ppyrczak.carrental.entities.User;
 import ppyrczak.carrental.repositories.UserRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 
 @Controller
 @Slf4j
@@ -51,16 +56,15 @@ public class UserController {
         return "/signin";
     }
 
-    /*@PostMapping("/signin")
-    public String checkUser(String email, String password, Model model) {
-        User user = userRepository.findByEmailAndPassword(email, password).orElseThrow(() ->
-                new IllegalArgumentException("Invalid user email:" + email));
-        model.addAttribute("user", user);
-        return "panel-user";
-    }*/
-
     @GetMapping("/panel-user")
-    public String identifyUser(String email, User user, String password, Model model) {
+    public String identifyUser(String email, User user, String password, Model model, HttpServletRequest request) {
+
+        String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
+                .replacePath(null)
+                .build()
+                .toUriString();
+
+        System.out.println(baseUrl  + request.getQueryString());
 
             if (userRepository.existsByEmailAndPassword(email, password)) {
                 user = userRepository.findByEmailAndPassword(email, password);
@@ -69,10 +73,12 @@ public class UserController {
                 return "panel-user";
             }
 
+
             else {
                 log.info("Wrong email or password");
                 return "redirect:/signin";
             }
+
     }
 
     @GetMapping("/update-user/{id}")
@@ -92,7 +98,7 @@ public class UserController {
 
         userRepository.save(user);
 
-        return "redirect:/index";
+        return "redirect:/panel-user";
     }
 
     @GetMapping("/delete/{id}")
@@ -102,6 +108,7 @@ public class UserController {
 
         return "redirect:/index";
     }
+
 
 
 }
