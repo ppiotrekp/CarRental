@@ -51,12 +51,28 @@ public class UserController {
         return "/signin";
     }
 
+    /*@PostMapping("/signin")
+    public String checkUser(String email, String password, Model model) {
+        User user = userRepository.findByEmailAndPassword(email, password).orElseThrow(() ->
+                new IllegalArgumentException("Invalid user email:" + email));
+        model.addAttribute("user", user);
+        return "panel-user";
+    }*/
+
     @GetMapping("/panel-user")
-    public String identifyUser(String email, String password, Model model) {
-            User user = userRepository.findByEmailAndPassword(email, password).orElseThrow(() ->
-                    new IllegalArgumentException("Invalid user email:" + email));
-            model.addAttribute("user", user);
-            return "panel-user";
+    public String identifyUser(String email, User user, String password, Model model) {
+
+            if (userRepository.existsByEmailAndPassword(email, password)) {
+                user = userRepository.findByEmailAndPassword(email, password);
+                model.addAttribute("user", user);
+                log.info("Works");
+                return "panel-user";
+            }
+
+            else {
+                log.info("Wrong email or password");
+                return "redirect:/signin";
+            }
     }
 
     @GetMapping("/update-user/{id}")
