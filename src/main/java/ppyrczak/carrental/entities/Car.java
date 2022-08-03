@@ -16,35 +16,29 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotBlank(message = "Brand is mandatory")
     private String brand;
-
     @NotBlank(message = "Model is mandatory")
     private String model;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     private Fuel fuel;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     private Transmission transmission;
-
     @NotBlank(message = "Power is mandatory")
     private int power;
-
     @NotBlank(message = "price is mandatory")
     private int priceForWeekend;
-
     @NotBlank(message = "price is mandatory")
     private int priceForWeek;
-
     @NotBlank(message = "price is mandatory")
     private int priceForTwoWeeks;
-
     @NotBlank(message = "price is mandatory")
     private int priceForMonth;
+
+    @OneToOne(mappedBy = "car")
+    private Rental rental;
 
     public Car(String brand,
                String model,
