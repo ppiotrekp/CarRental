@@ -15,15 +15,13 @@ import ppyrczak.carrental.repositories.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
 
 @Controller
 @Slf4j
 public class UserController {
 
     private final UserRepository userRepository;
+    public static Long userId;
 
     @Autowired
     public UserController(UserRepository userRepository) {
@@ -69,7 +67,8 @@ public class UserController {
             if (userRepository.existsByEmailAndPassword(email, password)) {
                 user = userRepository.findByEmailAndPassword(email, password);
                 model.addAttribute("user", user);
-                log.info("Works");
+                userId = user.getId();
+                log.info("Works" + userId.toString());
                 return "panel-user";
             }
 

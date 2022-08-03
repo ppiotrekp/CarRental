@@ -51,13 +51,11 @@
                         <td th:text="${car.priceForWeek}"></td>
                         <td th:text="${car.priceForTwoWeeks}"></td>
                         <td th:text="${car.priceForMonth}"></td>
+                        <td><a th:href="@{/rent-panel/{id}(id=${car.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
                     </tr>
                     </tbody>
-
                 </table>
             </div>
-
-            <p class="my-5"><a href="/signup" class="btn btn-primary"><i class="fas fa-user-plus ml-2"></i></a></p>
         </div>
     </div>
 </div>
