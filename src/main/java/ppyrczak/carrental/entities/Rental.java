@@ -1,5 +1,7 @@
 package ppyrczak.carrental.entities;
 
+import ppyrczak.carrental.utils.RentalSpan;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,5 +17,9 @@ public class Rental {
     private Long carId;
     private Date rentalStart;
     private Date rentalEnd;
+    private RentalSpan rentalSpan;
+    private int price;
+
+
 
 }
