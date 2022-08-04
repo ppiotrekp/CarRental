@@ -8,6 +8,8 @@ import ppyrczak.carrental.utils.Transmission;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -37,8 +39,12 @@ public class Car {
     @NotBlank(message = "price is mandatory")
     private int priceForMonth;
 
-    @OneToOne(mappedBy = "car")
-    private Rental rental;
+    @OneToMany(
+            mappedBy = "car",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private List<Rental> rentals = new ArrayList<>();
 
     public Car(String brand,
                String model,

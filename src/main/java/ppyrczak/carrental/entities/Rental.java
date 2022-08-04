@@ -7,12 +7,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
-@Data
 public class Rental {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date rentalStart;
     private Date rentalEnd;
@@ -22,11 +22,13 @@ public class Rental {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "car_id")
     private Car car;
 
-    public int getPrice() {
+
+
+   /* public int getPrice() {
         if (rentalSpan == RentalSpan.WEEKEND) {
             price = car.getPriceForWeekend();
         }
@@ -44,8 +46,57 @@ public class Rental {
         }
 
         return price;
+    }*/
+
+    public Long getId() {
+        return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public Date getRentalStart() {
+        return rentalStart;
+    }
 
+    public void setRentalStart(Date rentalStart) {
+        this.rentalStart = rentalStart;
+    }
+
+    public Date getRentalEnd() {
+        return rentalEnd;
+    }
+
+    public void setRentalEnd(Date rentalEnd) {
+        this.rentalEnd = rentalEnd;
+    }
+
+    public RentalSpan getRentalSpan() {
+        return rentalSpan;
+    }
+
+    public void setRentalSpan(RentalSpan rentalSpan) {
+        this.rentalSpan = rentalSpan;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
 }
