@@ -6,9 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import ppyrczak.carrental.entities.Car;
+import ppyrczak.carrental.entities.Rental;
 import ppyrczak.carrental.entities.User;
 import ppyrczak.carrental.repositories.CarRepository;
+import ppyrczak.carrental.repositories.RentalRepository;
 import ppyrczak.carrental.repositories.UserRepository;
 import ppyrczak.carrental.services.CarService;
 
@@ -24,12 +27,12 @@ public class CarController {
 
     private final CarRepository carRepository;
     private final UserRepository userRepository;
+    public static Long carId;
 
     @GetMapping("/cars")
     public String showAvailableCars(Model model) {
         log.info("userid" + UserController.userId);
         model.addAttribute("cars", carService.getAllCars());
-
         return "cars";
     }
 
@@ -37,11 +40,11 @@ public class CarController {
     public String showRentPanel(@PathVariable Long id, Model model) {
         Car car = carRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid car Id:" + id));
         Optional<User> user = userRepository.findById(UserController.userId);
-        log.info("userid" + UserController.userId);
+        carId = car.getId();
+        log.info("userid " + UserController.userId);
+        log.info("carid " + id);
         model.addAttribute("car", car);
         model.addAttribute("user", user);
-        return "rent-panel";
+        return "rent-car";
     }
-
-
 }

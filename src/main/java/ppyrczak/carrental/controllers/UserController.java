@@ -56,14 +56,6 @@ public class UserController {
 
     @GetMapping("/panel-user")
     public String identifyUser(String email, User user, String password, Model model, HttpServletRequest request) {
-
-        String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request)
-                .replacePath(null)
-                .build()
-                .toUriString();
-
-        System.out.println(baseUrl  + request.getQueryString());
-
             if (userRepository.existsByEmailAndPassword(email, password)) {
                 user = userRepository.findByEmailAndPassword(email, password);
                 model.addAttribute("user", user);
@@ -71,7 +63,6 @@ public class UserController {
                 log.info("Works" + userId.toString());
                 return "panel-user";
             }
-
 
             else {
                 log.info("Wrong email or password");
