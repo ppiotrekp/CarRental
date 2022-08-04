@@ -29,6 +29,23 @@ public class Rental {
     @JoinColumn(name = "car_id")
     private Car car;
 
+    public int convertSpanFromEnumToInteger() {
+        if (rentalSpan == RentalSpan.WEEKEND) {
+            return 2;
+        }
+
+        else if (rentalSpan == RentalSpan.WEEK) {
+            return 7;
+        }
+
+        else if (rentalSpan == RentalSpan.TWO_WEEKS) {
+            return 14;
+        }
+
+        else
+            return 30;
+    }
+
 
     public int getPrice() {
         return price;
@@ -55,7 +72,7 @@ public class Rental {
     }
 
     public void setRentalEnd() {
-        this.rentalEnd = rentalStart.plusDays(30);
+        this.rentalEnd = rentalStart.plusDays(convertSpanFromEnumToInteger());
     }
 
     public RentalSpan getRentalSpan() {
