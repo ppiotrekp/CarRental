@@ -12,7 +12,9 @@ import ppyrczak.carrental.entities.User;
 import ppyrczak.carrental.repositories.CarRepository;
 import ppyrczak.carrental.repositories.RentalRepository;
 import ppyrczak.carrental.repositories.UserRepository;
+import ppyrczak.carrental.utils.RentalSpan;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,9 +32,11 @@ public class RentalController {
         userId = UserController.userId;
         User user = userRepository.findOnlyById(userId);
         Car car = carRepository.findOnlyById(carId);
-        // log.info("WORKSSS " + car);
         rental.setCar(car);
         rental.setUser(user);
+        //rental.setRentalSpan();
+        rental.setPrice();
+        rental.setRentalEnd();
         rentalRepository.save(rental);
         log.info("WORKSSS " + rental.getCar());
         return "redirect:/cars";

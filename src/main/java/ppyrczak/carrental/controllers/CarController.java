@@ -40,11 +40,13 @@ public class CarController {
     public String showRentPanel(@PathVariable Long id, Model model) {
         Car car = carRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid car Id:" + id));
         Optional<User> user = userRepository.findById(UserController.userId);
+        Rental rental = new Rental();
         carId = car.getId();
         log.info("userid " + UserController.userId);
         log.info("carid " + id);
         model.addAttribute("car", car);
         model.addAttribute("user", user);
+        model.addAttribute("rental", rental);
         return "rent-car";
     }
 }

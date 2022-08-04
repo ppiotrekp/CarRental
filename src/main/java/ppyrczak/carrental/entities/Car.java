@@ -70,7 +70,7 @@ public class Car {
         return fuel.toString();
     }
 
-    public Transmission getTransmission() {
-        return transmission;
+    public String getTransmission() {
+        return transmission.toString();
     }
 }

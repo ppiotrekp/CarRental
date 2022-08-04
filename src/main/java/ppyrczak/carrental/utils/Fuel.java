@@ -1,7 +1,8 @@
 package ppyrczak.carrental.utils;
 
 public enum Fuel {
-    PETROL("Petrol"), DIESEL("Diesel");
+    PETROL("Petrol"),
+    DIESEL("Diesel");
     private final String fuel;
 
     Fuel(String fuel) {
