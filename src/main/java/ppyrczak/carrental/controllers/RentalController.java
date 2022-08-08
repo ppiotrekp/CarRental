@@ -34,11 +34,10 @@ public class RentalController {
         Car car = carRepository.findOnlyById(carId);
         rental.setCar(car);
         rental.setUser(user);
-        //rental.setRentalSpan();
         rental.setPrice();
         rental.setRentalEnd();
+        System.out.println(rental.getCar());
         rentalRepository.save(rental);
-        log.info("WORKSSS " + rental.getCar());
         return "redirect:/cars";
     }
 
