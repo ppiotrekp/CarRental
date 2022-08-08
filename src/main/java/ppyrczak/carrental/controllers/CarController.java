@@ -1,12 +1,14 @@
 package ppyrczak.carrental.controllers;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ppyrczak.carrental.entities.Car;
 import ppyrczak.carrental.entities.Rental;
 import ppyrczak.carrental.entities.User;
@@ -15,9 +17,10 @@ import ppyrczak.carrental.repositories.RentalRepository;
 import ppyrczak.carrental.repositories.UserRepository;
 import ppyrczak.carrental.services.CarService;
 
+import java.util.List;
 import java.util.Optional;
 
-//@Data
+@Data
 @Controller
 @AllArgsConstructor
 @Slf4j
@@ -27,6 +30,9 @@ public class CarController {
 
     private final CarRepository carRepository;
     private final UserRepository userRepository;
+    private final RentalRepository rentalRepository;
+
+
     public static Long carId;
 
     @GetMapping("/cars")
@@ -48,5 +54,19 @@ public class CarController {
         model.addAttribute("user", user);
         model.addAttribute("rental", rental);
         return "rent-car";
+    }
+
+    @GetMapping("/history")
+    public String showUserHistory(Long id, Model model) {
+        id = UserController.userId;
+        log.info("Id: " + id);
+        List<Rental> rentalList = rentalRepository.findAll(id);
+        model.addAttribute("rentalList", rentalList);
+        /*for (Object rental : rentals) {
+            log.info("rental: " + rental.toString());
+        }
+        log.info("rentals: " + rentalRepository.findAll(UserController.userId));*/
+
+        return "history";
     }
 }

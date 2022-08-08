@@ -8,24 +8,27 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ppyrczak.carrental.entities.Car;
 import ppyrczak.carrental.entities.User;
+import ppyrczak.carrental.repositories.CarRepository;
 import ppyrczak.carrental.repositories.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @Slf4j
 public class UserController {
 
     private final UserRepository userRepository;
+    private final CarRepository carRepository;
     public static Long userId;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, CarRepository carRepository) {
         this.userRepository = userRepository;
+        this.carRepository = carRepository;
     }
 
     @GetMapping("/index")
@@ -68,7 +71,6 @@ public class UserController {
                 log.info("Wrong email or password");
                 return "redirect:/signin";
             }
-
     }
 
     @GetMapping("/update-user/{id}")
@@ -98,7 +100,4 @@ public class UserController {
 
         return "redirect:/index";
     }
-
-
-
 }
