@@ -1,5 +1,6 @@
 package ppyrczak.carrental.controllers;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,20 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
+@Data
 @Slf4j
 public class UserController {
 
     private final UserRepository userRepository;
     private final CarRepository carRepository;
     public static Long userId;
-
     private boolean logged = false;
-
-    @Autowired
-    public UserController(UserRepository userRepository, CarRepository carRepository) {
-        this.userRepository = userRepository;
-        this.carRepository = carRepository;
-    }
 
     @GetMapping("/index")
     public String showUserList(Model model) {

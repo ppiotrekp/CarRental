@@ -27,17 +27,13 @@ import java.util.Optional;
 
 public class CarController {
     private final CarService carService;
-
     private final CarRepository carRepository;
     private final UserRepository userRepository;
     private final RentalRepository rentalRepository;
-
-
     public static Long carId;
 
     @GetMapping("/cars")
     public String showAvailableCars(Model model) {
-        log.info("userid" + UserController.userId);
         model.addAttribute("cars", carService.getAllCars());
         return "cars";
     }
@@ -48,8 +44,6 @@ public class CarController {
         Optional<User> user = userRepository.findById(UserController.userId);
         Rental rental = new Rental();
         carId = car.getId();
-        log.info("userid " + UserController.userId);
-        log.info("carid " + id);
         model.addAttribute("car", car);
         model.addAttribute("user", user);
         model.addAttribute("rental", rental);
@@ -59,14 +53,8 @@ public class CarController {
     @GetMapping("/history")
     public String showUserHistory(Long id, Model model) {
         id = UserController.userId;
-        log.info("Id: " + id);
         List<Rental> rentalList = rentalRepository.findAll(id);
         model.addAttribute("rentalList", rentalList);
-        /*for (Object rental : rentals) {
-            log.info("rental: " + rental.toString());
-        }
-        log.info("rentals: " + rentalRepository.findAll(UserController.userId));*/
-
         return "history";
     }
 }

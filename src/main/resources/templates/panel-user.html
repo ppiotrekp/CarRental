@@ -19,14 +19,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <div class="navbar-nav ml-auto">
-                <form action="#" th:action="@{/update-user/{id}(id=${user.id})}"  method="GET">
-                    <a class="navbar navbar-light" th:href="@{/update-user/{id}(id=${user.id})}">My account</a>
-                </form>
                 <form action="#" th:action="@{/home}"  method="GET">
                     <a class="navbar navbar-light" th:href="@{/home}">Logout</a>
                 </form>
                 <form action="#" th:action="@{/home}"  method="GET">
-                    <a class="navbar navbar-light" th:href="@{/home}">History</a>
+                    <a class="navbar navbar-light" th:href="@{/history}">History</a>
                 </form>
                 <form action="#" th:action="@{/cars}"  method="GET">
                     <a class="navbar navbar-light" th:href="@{/cars}">Cars</a>

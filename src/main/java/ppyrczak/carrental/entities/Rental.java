@@ -5,11 +5,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import ppyrczak.carrental.utils.RentalSpan;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.*;
 
 @Entity
+@Data
 public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,11 +45,6 @@ public class Rental {
             return 30;
     }
 
-
-    public int getPrice() {
-        return price;
-    }
-
     public Long getId() {
         return id;
     }
@@ -59,28 +53,8 @@ public class Rental {
         this.id = id;
     }
 
-    public LocalDate getRentalStart() {
-        return rentalStart;
-    }
-
-    public void setRentalStart(LocalDate rentalStart) {
-        this.rentalStart = rentalStart;
-    }
-
-    public LocalDate getRentalEnd() {
-        return rentalEnd;
-    }
-
     public void setRentalEnd() {
         this.rentalEnd = rentalStart.plusDays(convertSpanFromEnumToInteger());
-    }
-
-    public RentalSpan getRentalSpan() {
-        return rentalSpan;
-    }
-
-    public void setRentalSpan(RentalSpan rentalSpan) {
-        this.rentalSpan = rentalSpan;
     }
 
     public void setPrice() {

@@ -16,9 +16,9 @@ class CarRepositoryTest {
     private CarRepository carRepository;
 
     @Test
-    void ifStudentExists() {
-        Car car = new Car("BMW", "M5", Fuel.PETROL, Transmission.AUTOMATIC, 630, 2000, 4000, 7000, 10000);
-        carRepository.save(car);
+    void ifCarExists() {
+       // Car car = new Car("BMW", "M5", Fuel.PETROL, Transmission.AUTOMATIC, 630, 2000, 4000, 7000, 10000);
+       // carRepository.save(car);
 
         //boolean expected = carRepository.
 
