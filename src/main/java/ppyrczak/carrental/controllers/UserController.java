@@ -98,19 +98,4 @@ public class UserController {
         userRepository.delete(user);
         return "redirect:/index";
     }
-
-    @GetMapping("/about")
-    public String showAboutPage() {
-        return "about";
-    }
-
-    @GetMapping("/contact")
-    public String showContactPage() {
-        return "contact";
-    }
-
-    @GetMapping("/home")
-    public String showHomePage() {
-        return "home";
-    }
 }

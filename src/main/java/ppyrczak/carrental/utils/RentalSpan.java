@@ -1,7 +1,7 @@
 package ppyrczak.carrental.utils;
 
 public enum RentalSpan {
-    WEEKEND("Weekend"),
+    TWO_DAYS("Two days"),
     WEEK("Week"),
     TWO_WEEKS("Two weeks"),
     MONTH("Month");

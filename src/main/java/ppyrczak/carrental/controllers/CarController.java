@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import ppyrczak.carrental.entities.Car;
 import ppyrczak.carrental.entities.Rental;
 import ppyrczak.carrental.entities.User;
@@ -17,6 +15,7 @@ import ppyrczak.carrental.repositories.RentalRepository;
 import ppyrczak.carrental.repositories.UserRepository;
 import ppyrczak.carrental.services.CarService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,6 +54,7 @@ public class CarController {
         id = UserController.userId;
         List<Rental> rentalList = rentalRepository.findAll(id);
         model.addAttribute("rentalList", rentalList);
+        System.out.println(LocalDate.now());
         return "history";
     }
 }

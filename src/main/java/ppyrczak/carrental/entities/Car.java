@@ -33,13 +33,16 @@ public class Car {
     @NotBlank(message = "Power is mandatory")
     private int power;
     @NotBlank(message = "price is mandatory")
-    private int priceForWeekend;
+    private int priceForTwoDays;
     @NotBlank(message = "price is mandatory")
     private int priceForWeek;
     @NotBlank(message = "price is mandatory")
     private int priceForTwoWeeks;
     @NotBlank(message = "price is mandatory")
     private int priceForMonth;
+
+    //@NotBlank(message = "availability is mandatory")
+    //private boolean available;
 
     @OneToMany(
             mappedBy = "car",
@@ -62,7 +65,7 @@ public class Car {
         this.fuel = fuel;
         this.transmission = transmission;
         this.power = power;
-        this.priceForWeekend = priceForWeekend;
+        this.priceForTwoDays = priceForWeekend;
         this.priceForWeek = priceForWeek;
         this.priceForTwoWeeks = priceForTwoWeeks;
         this.priceForMonth = priceForMonth;

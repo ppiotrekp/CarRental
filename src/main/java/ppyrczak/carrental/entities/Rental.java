@@ -15,6 +15,7 @@ public class Rental {
     private Long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate rentalStart;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate rentalEnd;
     @Enumerated(EnumType.STRING)
@@ -29,7 +30,7 @@ public class Rental {
     private Car car;
 
     public int convertSpanFromEnumToInteger() {
-        if (rentalSpan == RentalSpan.WEEKEND) {
+        if (rentalSpan == RentalSpan.TWO_DAYS) {
             return 2;
         }
 
@@ -58,8 +59,8 @@ public class Rental {
     }
 
     public void setPrice() {
-        if (rentalSpan == RentalSpan.WEEKEND) {
-            price = car.getPriceForWeekend();
+        if (rentalSpan == RentalSpan.TWO_DAYS) {
+            price = car.getPriceForTwoDays();
         }
 
         else if (rentalSpan == RentalSpan.WEEK) {
