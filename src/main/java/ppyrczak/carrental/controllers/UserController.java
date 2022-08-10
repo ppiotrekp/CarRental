@@ -2,7 +2,6 @@ package ppyrczak.carrental.controllers;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +13,6 @@ import ppyrczak.carrental.entities.User;
 import ppyrczak.carrental.repositories.CarRepository;
 import ppyrczak.carrental.repositories.UserRepository;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -51,45 +49,26 @@ public class UserController {
 
     @GetMapping("/signin")
     public String showSignInForm() {
+        userId = null;
         return "/signin";
     }
 
     @GetMapping("/panel-user")
     public String identifyUser(String email, User user, String password, Model model) {
-
         if (userRepository.existsByEmailAndPassword(email, password)) {
-            logged = true;
             user = userRepository.findByEmailAndPassword(email, password);
             model.addAttribute("user", user);
             userId = user.getId();
         }
 
-        if (logged = true) {
+        if (userId != null) {
             return "panel-user";
         }
 
         else {
-            log.info("Wrong email or password");
+            System.out.println(userId);
             return "redirect:/signin";
         }
-    }
-
-    @GetMapping("/update-user/{id}")
-    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        model.addAttribute("user", user);
-        return "update-user";
-    }
-
-    @PostMapping("/update-user/{id}")
-    public String updateUser(@PathVariable("id") Long id, @Valid User user, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            user.setId(id);
-            return "update-user";
-        }
-
-        userRepository.save(user);
-        return "redirect:/panel-user";
     }
 
     @GetMapping("/delete/{id}")
