@@ -9,6 +9,7 @@ import ppyrczak.carrental.utils.Transmission;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +42,9 @@ public class Car {
     @NotBlank(message = "price is mandatory")
     private int priceForMonth;
 
-    //@NotBlank(message = "availability is mandatory")
-    //private boolean available;
+    private LocalDate unavailableFrom;
+
+    private LocalDate unavailableTo;
 
     @OneToMany(
             mappedBy = "car",
@@ -77,5 +79,15 @@ public class Car {
 
     public String getTransmission() {
         return transmission.toString();
+    }
+
+    public boolean checkAvailability(LocalDate start, LocalDate end) {
+        if (start.isAfter(unavailableFrom) && end.isBefore(unavailableTo)) {
+            return false;
+        }
+
+        else {
+            return true;
+        }
     }
 }

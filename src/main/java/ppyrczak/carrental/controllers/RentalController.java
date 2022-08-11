@@ -29,7 +29,17 @@ public class RentalController {
         rental.setUser(user);
         rental.setPrice();
         rental.setRentalEnd();
-        rentalRepository.save(rental);
-        return "redirect:/panel-user";
+        if (car.checkAvailability(rental.getRentalStart(), rental.getRentalEnd()) == true) {
+            System.out.println(rental.getRentalStart());
+            car.setUnavailableFrom(rental.getRentalStart());
+            car.setUnavailableTo(rental.getRentalEnd());
+            rentalRepository.save(rental);
+            return "redirect:/panel-user";
+        }
+
+        else {
+            System.out.println("car is not available");
+            return "redirect:/panel-user";
+        }
     }
 }
