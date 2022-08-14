@@ -1,5 +1,5 @@
 # CarRental
-Web application to rent cars in specific date
+Web application to rent cars on specific date
 # How to run
 - Shift + F10
 - mvn spring-boot:run
