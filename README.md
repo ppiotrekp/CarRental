@@ -6,7 +6,7 @@ Web application to rent cars in specific date
 - mvn clean install and then java -jar target/CarRental-0.0.1-SNAPSHOT.jar
 # Technology stack
 - Java
-- Spring
+- Spring Boot
 - MySQL
 - HTML Thymeleaf
 
