@@ -1,2 +1,2 @@
 # CarRental
-My first spring boot project
+Web application to rent cars in specific date
