@@ -9,4 +9,7 @@ Web application to rent cars on specific date
 - Spring Boot
 - MySQL
 - HTML Thymeleaf
+# How to use app
+![image](https://user-images.githubusercontent.com/73071921/184552765-1a57036f-ada9-4eba-8c83-f6240597507a.png)
+
 
