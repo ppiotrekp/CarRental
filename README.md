@@ -21,3 +21,5 @@ Now, we have three options: logout, check our rental history or browse available
 This is a cars panel
 ![image](https://user-images.githubusercontent.com/73071921/184553529-56afdef3-ad5f-4294-961c-815b7c1da50a.png)
 
+By click a plus button we are directed on rental panel  
+![rentcar](https://user-images.githubusercontent.com/73071921/184553695-fc03bc6c-c731-43cc-9995-c40f678715bf.png)
