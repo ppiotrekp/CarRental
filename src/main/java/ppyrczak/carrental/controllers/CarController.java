@@ -5,8 +5,11 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import ppyrczak.carrental.entities.Car;
 import ppyrczak.carrental.entities.Rental;
 import ppyrczak.carrental.entities.User;
@@ -15,6 +18,7 @@ import ppyrczak.carrental.repositories.RentalRepository;
 import ppyrczak.carrental.repositories.UserRepository;
 import ppyrczak.carrental.services.CarService;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -56,5 +60,21 @@ public class CarController {
         model.addAttribute("rentalList", rentalList);
         System.out.println(LocalDate.now());
         return "history";
+    }
+
+    @GetMapping("/newcar")
+    public String showSignInForm(Model model) {
+        model.addAttribute("car", new Car());
+        return "add-car";
+    }
+
+    @PostMapping("/addcar")
+    public String addUser(@Valid @ModelAttribute("car") Car car, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "add-car";
+        }
+
+        carRepository.save(car);
+        return "redirect:/newcar";
     }
 }
