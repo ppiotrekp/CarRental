@@ -3,6 +3,7 @@ package ppyrczak.carrental.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ppyrczak.carrental.utils.Fuel;
 import ppyrczak.carrental.utils.Transmission;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,15 +33,15 @@ public class Car {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Transmission transmission;
-    @NotBlank(message = "Power is mandatory")
+    @NotNull(message = "Power is mandatory")
     private int power;
-    @NotBlank(message = "price is mandatory")
+    @NotNull(message = "price is mandatory")
     private int priceForTwoDays;
-    @NotBlank(message = "price is mandatory")
+    @NotNull(message = "price is mandatory")
     private int priceForWeek;
-    @NotBlank(message = "price is mandatory")
+    @NotNull(message = "price is mandatory")
     private int priceForTwoWeeks;
-    @NotBlank(message = "price is mandatory")
+    @NotNull(message = "price is mandatory")
     private int priceForMonth;
 
     private LocalDate unavailableFrom;
@@ -73,21 +75,35 @@ public class Car {
         this.priceForMonth = priceForMonth;
     }
 
-    public String getFuel() {
-        return fuel.toString();
+    public Fuel getFuel() {
+        return fuel;
     }
 
-    public String getTransmission() {
-        return transmission.toString();
+    public Transmission getTransmission() {
+        return transmission;
     }
 
     public boolean checkAvailability(LocalDate start, LocalDate end) {
-        if (start.isAfter(unavailableFrom) && end.isBefore(unavailableTo)) {
-            return false;
+        if (unavailableFrom != null && unavailableTo != null) {
+            if ((start.isAfter(unavailableFrom) && end.isBefore(unavailableTo)) ||
+                    (start.isBefore(unavailableFrom) && end.isAfter(unavailableTo)) ||
+                    (start.isBefore(unavailableTo) && end.isAfter(unavailableTo)) ||
+                    (start.isBefore(unavailableFrom) && end.isAfter(unavailableFrom)) ||
+                    (start.isEqual(unavailableFrom))
+            ) {
+                log.info("Car is not available");
+                return false;
+            }
+            else {
+                return true;
+            }
         }
 
         else {
             return true;
         }
     }
+
+
+
 }
