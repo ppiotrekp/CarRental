@@ -14,6 +14,10 @@ import ppyrczak.carrental.repositories.CarRepository;
 import ppyrczak.carrental.repositories.UserRepository;
 
 import javax.validation.Valid;
+import java.security.NoSuchAlgorithmException;
+
+import static ppyrczak.carrental.utils.SHA256.getSHA;
+import static ppyrczak.carrental.utils.SHA256.toHexString;
 
 @Controller
 @Data
@@ -25,12 +29,6 @@ public class UserController {
     public static Long userId;
     private boolean logged = false;
 
-    @GetMapping("/index")
-    public String showUserList(Model model) {
-        model.addAttribute("users", userRepository.findAll());
-        return "index";
-    }
-
     @GetMapping("/signup")
     public String showSignUpForm(Model model) {
         model.addAttribute("user", new User());
@@ -38,11 +36,12 @@ public class UserController {
     }
 
     @PostMapping("/adduser")
-    public String addUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+    public String addUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) throws NoSuchAlgorithmException {
         if (result.hasErrors()) {
             return "add-user";
         }
-      //  model.addAttribute("user", user);
+
+        user.setPassword(toHexString(getSHA(user.getPassword())));
         userRepository.save(user);
         return "redirect:/home";
     }
@@ -50,13 +49,14 @@ public class UserController {
     @GetMapping("/signin")
     public String showSignInForm() {
         userId = null;
-        return "/signin";
+        return "signin";
     }
 
     @GetMapping("/panel-user")
-    public String identifyUser(String email, User user, String password, Model model) {
-        if (userRepository.existsByEmailAndPassword(email, password)) {
-            user = userRepository.findByEmailAndPassword(email, password);
+    public String identifyUser(String email, User user, String password, Model model) throws NoSuchAlgorithmException {
+        String hashPassword = toHexString(getSHA(password));
+        if (userRepository.existsByEmailAndPassword(email, hashPassword)) {
+            user = userRepository.findByEmailAndPassword(email, hashPassword);
             model.addAttribute("user", user);
             userId = user.getId();
         }
@@ -66,7 +66,6 @@ public class UserController {
         }
 
         else {
-            System.out.println(userId);
             return "redirect:/signin";
         }
     }
